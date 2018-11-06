@@ -3,7 +3,14 @@ CFLAGS = -g -Wall
 
 TARGET = main
 
-all : $(TARGET).c
-      $(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
+SERIALPORTLIB_DIR = arduino-serial
+SERIALPORTLIB_SRCS = $(SERIALPORTLIB_DIR)/arduino-serial-lib.c \
+
+BIN = gss
+SRCS = main.c \
+  $(SERIALPORTLIB_SRCS)
+
+all :
+      $(CC) $(CFLAGS) $(SRCS) -o $(BIN)
 clean:
 	$(RM) $(TARGET)
