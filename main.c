@@ -98,7 +98,7 @@ int main(int argc, char const *argv[]) {
 
       }
 
-      printf("From Arduino Serial Debug : %d, %d\n", sensorData[0], sensorData[1]);
+      printf("From Arduino Serial Debug : %s\n", sensorData);
 
       int bytesSent_2 = serialport_write(fd, ElevationData);
       if(bytesSent_2 == -1) {
@@ -112,7 +112,7 @@ int main(int argc, char const *argv[]) {
 
      }
 
-     printf("From Arduino Serial Debug : %d, %d\n", sensorData[0], sensorData[1]);
+     printf("From Arduino Serial Debug : %s\n", sensorData);
 
      sleep(1);
 
