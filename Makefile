@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -Og -Wno-format-truncation
 
 SERIALPORTLIB_DIR = arduino-serial
 SERIALPORTLIB_SRCS = $(SERIALPORTLIB_DIR)/arduino-serial-lib.c \
