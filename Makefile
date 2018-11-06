@@ -4,8 +4,10 @@ CFLAGS = -g -Wall
 SERIALPORTLIB_DIR = arduino-serial
 SERIALPORTLIB_SRCS = $(SERIALPORTLIB_DIR)/arduino-serial-lib.c \
 
-BIN = gss
+BIN = serial_test_client
 SRCS = main.c \
+	config.c \
+	minIni.c \
   $(SERIALPORTLIB_SRCS)
 
 LIBS  = -lpq
