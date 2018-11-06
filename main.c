@@ -14,7 +14,7 @@ char ElevationData[] = "1834:\0" ;
 char sensorData[20];
 int main(int argc, char const *argv[]) {
 
-  int fd = serialport_init(filename, 9600);
+  int fd = serialport_init(/dev/ttyACM0, 9600);
 
   while(1) {
      int bytesSent_1 = serialport_write(fd, AzimuthData);
@@ -29,13 +29,13 @@ int main(int argc, char const *argv[]) {
       } else {
         printf("Elevation : %s sent\n", ElevationData);
       }
-     int bytesReceived = serialport_read_until(fd, sensorData, ':');
+     int bytesReceived = serialport_read_until(fd, sensorData, ':', 1000);
      if (bytesReceived == -1){
        printf("Error: Serial Read function failed!\n");
 
      }
 
-     printf("From Arduino Serial Debug : %s, %s\n", sensorData[0], sensorData[1])
+     printf("From Arduino Serial Debug : %d, %d\n", sensorData[0], sensorData[1]);
 
      }
 
