@@ -92,14 +92,22 @@ int main(int argc, char const *argv[]) {
       } else {
         printf("Azimuth : %s sent\n", AzimuthData);
       }
+      int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 20, 2000);
+      if (bytesReceived_1 == -1){
+        printf("Error: Serial Read function failed!\n");
+
+      }
+
+      printf("From Arduino Serial Debug : %d, %d\n", sensorData[0], sensorData[1]);
+
       int bytesSent_2 = serialport_write(fd, ElevationData);
       if(bytesSent_2 == -1) {
          printf("Error: Elevation Data failed to send!\n" );
       } else {
         printf("Elevation : %s sent\n", ElevationData);
       }
-     int bytesReceived = serialport_read_until(fd, sensorData, ':', 20, 2000);
-     if (bytesReceived == -1){
+     int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 20, 2000);
+     if (bytesReceived_2 == -1){
        printf("Error: Serial Read function failed!\n");
 
      }
