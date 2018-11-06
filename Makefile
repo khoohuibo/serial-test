@@ -8,7 +8,7 @@ BIN = gss
 SRCS = main.c \
   $(SERIALPORTLIB_SRCS)
 
-LIBS  = -lpqs
+LIBS  = -lpq
 INCLUDES = -I/usr/include/postgresql
 all :
 	$(CC) $(CFLAGS) $(SRCS) -o $(BIN) $(LIBS) $(INCLUDES)
