@@ -14,7 +14,7 @@ char ElevationData[] = "1834:\0" ;
 char sensorData[20];
 int main(int argc, char const *argv[]) {
 
-  int fd = serialport_init(/dev/ttyACM0, 9600);
+  int fd = serialport_init("/dev/ttyACM0", 9600);
 
   while(1) {
      int bytesSent_1 = serialport_write(fd, AzimuthData);
@@ -29,7 +29,7 @@ int main(int argc, char const *argv[]) {
       } else {
         printf("Elevation : %s sent\n", ElevationData);
       }
-     int bytesReceived = serialport_read_until(fd, sensorData, ':', 1000);
+     int bytesReceived = serialport_read_until(fd, sensorData, ':', 20, 2000);
      if (bytesReceived == -1){
        printf("Error: Serial Read function failed!\n");
 
