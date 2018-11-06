@@ -1,9 +1,7 @@
 #include <Servo.h>
 
 Servo myservo;
-
-
-char IncomingData[20];
+char incomingByte[20];
 
 void setup() {
   Serial.begin(9600);
@@ -12,20 +10,17 @@ void setup() {
 }
 
 void loop() {
-  if(Serial.available()){
-    char y;
+  if(Serial.available() > 0){
+    char y = Serial.read();
     int counter = 0;
-    while((y = Serial.read()) != ':'){
-      if (y != -1){
-        IncomingData[counter] = y;
-        ++ counter;       
-      }
-    }
-    Serial.print(IncomingData);
-    Serial.write(IncomingData);
+    if (y != -1 and y != 0){
+        incomingByte[counter] = y;
+        ++ counter;   
+        }
+    Serial.write(incomingByte);
+    memset(&incomingByte[0], 0, sizeof(incomingByte));
     delay(200);
-    
+    Serial.flush();  
   }
-  // put your main code here, to run repeatedly:
-
+  
 }
