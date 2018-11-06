@@ -11,8 +11,8 @@
 #include "config.h"
 
 
-char AzimuthData;
-char ElevationData;
+char AzimuthData[100];
+char ElevationData[100];
 char sensorData[20];
 
 
@@ -43,8 +43,8 @@ void recieve_azi_el(PGconn *conn)
         , atof(PQgetvalue(res,0,4))
         , atof(PQgetvalue(res,0,5))
     );
-    AzimuthData = (PQgetvalue(res,0,2));
-    ElevationData = (PQgetvalue(res,0,3));
+    strncpy(AzimuthData, PQgetvalue(res,0,2), 100);
+    strncpy(ElevationData, PQgetvalue(res,0,3), 100);
     PQclear(res);
 }
 
@@ -83,7 +83,7 @@ int main(int argc, char const *argv[]) {
   int fd = serialport_init("/dev/ttyACM0", 9600);
 
   while(1) {
-     void recieve_azi_el(conn);
+     recieve_azi_el(conn);
 
      int bytesSent_1 = serialport_write(fd, AzimuthData);
      if(bytesSent_1 == -1) {
