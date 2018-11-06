@@ -1,7 +1,7 @@
 # serial-test
 test repository for serial communication between VM and Arduino Mega 2560
 
-test involves sending data over a serial port from a virtualbox ubuntu 64 bit with a usb extension pack, with USB set to 3.0 and Port connections set from COM1, Host Device into COM3, which was the port of the Arduino Mega on my board.
+test involves sending data over a serial port from a virtualbox ubuntu 64 bit with a usb extension pack, with USB set to 3.0 and Port connections set from COM1, Host Device into COM3, which was the port of the Arduino Mega on my Windows 8 Host.
 
 Changelog:
 November 6th, 2018:
@@ -14,6 +14,7 @@ November 6th, 2018:
   7. Fixed buffer memory allocation issues by clearing buffer after every read; see: sensorData buffer + memset functions
   8. Fixed arduino loops to prevent overwriting over each element
   9. added flush and memset as well on arduino end to make it better
+  10. added config.ini.example from groundstation-tracking-scheduler as reference
 
 Note: the client doesnt work if the serial monitor of the Arduino is listening to the Arduino as well.
 
