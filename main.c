@@ -43,17 +43,20 @@ void recieve_azi_el(PGconn *conn)
         , atof(PQgetvalue(res,0,4))
         , atof(PQgetvalue(res,0,5))
     );
-    AzimuthData = atoi(PQgetvalue(res,0,2))
-    ElevationData = atoi(PQgetvalue(res,0,3))
+    AzimuthData = (PQgetvalue(res,0,2));
+    ElevationData = (PQgetvalue(res,0,3));
     PQclear(res);
 }
 
 int main(int argc, char const *argv[]) {
 
   fprintf(stdout,
-      "PSQL to Arduino test "BUILD_VERSION" (built "BUILD_DATE")\n"
+      "PSQL to Arduino test\n"
       "Hubert Khoo 2018\n"
   );
+
+  char config_filename[100];
+  strncpy(config_filename, "config.ini", 100);
 
   printf("Loading config from file: %s\n", config_filename);
   if(!config_load(&config, config_filename))
@@ -72,20 +75,27 @@ int main(int argc, char const *argv[]) {
       return 1;
   }
 
+  printf("Connected to Server (server: %d, client: %d)\n"
+      , PQserverVersion(conn), PQlibVersion()
+  );
+
+
   int fd = serialport_init("/dev/ttyACM0", 9600);
 
   while(1) {
+     void recieve_azi_el(conn);
+
      int bytesSent_1 = serialport_write(fd, AzimuthData);
      if(bytesSent_1 == -1) {
         printf("Error: Azimuth Data failed to send!\n" );
       } else {
-        printf("Azimuth : %s sent\n", AzimuthData);
+        printf("Azimuth : %d sent\n", AzimuthData);
       }
       int bytesSent_2 = serialport_write(fd, ElevationData);
       if(bytesSent_2 == -1) {
          printf("Error: Elevation Data failed to send!\n" );
       } else {
-        printf("Elevation : %s sent\n", ElevationData);
+        printf("Elevation : %d sent\n", ElevationData);
       }
      int bytesReceived = serialport_read_until(fd, sensorData, ':', 20, 2000);
      if (bytesReceived == -1){
