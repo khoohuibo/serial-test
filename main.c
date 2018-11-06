@@ -84,18 +84,19 @@ int main(int argc, char const *argv[]) {
 
   while(1) {
      recieve_azi_el(conn);
+     sleep(1);
 
      int bytesSent_1 = serialport_write(fd, AzimuthData);
      if(bytesSent_1 == -1) {
         printf("Error: Azimuth Data failed to send!\n" );
       } else {
-        printf("Azimuth : %d sent\n", AzimuthData);
+        printf("Azimuth : %s sent\n", AzimuthData);
       }
       int bytesSent_2 = serialport_write(fd, ElevationData);
       if(bytesSent_2 == -1) {
          printf("Error: Elevation Data failed to send!\n" );
       } else {
-        printf("Elevation : %d sent\n", ElevationData);
+        printf("Elevation : %s sent\n", ElevationData);
       }
      int bytesReceived = serialport_read_until(fd, sensorData, ':', 20, 2000);
      if (bytesReceived == -1){
