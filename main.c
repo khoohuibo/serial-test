@@ -83,40 +83,41 @@ int main(int argc, char const *argv[]) {
   int fd = serialport_init("/dev/ttyACM0", 9600);
 
   while(1) {
-     recieve_azi_el(conn);
-     sleep(1);
+    recieve_azi_el(conn);
+    sleep(1);
 
-     int bytesSent_1 = serialport_write(fd, AzimuthData);
+    int bytesSent_1 = serialport_write(fd, AzimuthData);
      if(bytesSent_1 == -1) {
         printf("Error: Azimuth Data failed to send!\n" );
       } else {
         printf("Azimuth : %s sent\n", AzimuthData);
       }
-      int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 2000, 2000);
-      if (bytesReceived_1 == -1){
+    int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 2000, 20000);
+    if (bytesReceived_1 == -1){
         printf("Error: Serial Read function failed!\n");
 
       }
 
-      printf("From Arduino Serial Debug : %s\n", sensorData);
+    printf("From Arduino Serial Debug : %s\n", sensorData);
+    sleep(1);
 
-      int bytesSent_2 = serialport_write(fd, ElevationData);
-      if(bytesSent_2 == -1) {
+    int bytesSent_2 = serialport_write(fd, ElevationData);
+    if(bytesSent_2 == -1) {
          printf("Error: Elevation Data failed to send!\n" );
-      } else {
-        printf("Elevation : %s sent\n", ElevationData);
       }
-     int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 2000);
-     if (bytesReceived_2 == -1){
-       printf("Error: Serial Read function failed!\n");
+    else {
+      printf("Elevation : %s sent\n", ElevationData);
+      }
+    int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 20000);
+    if (bytesReceived_2 == -1){
+      printf("Error: Serial Read function failed!\n");
+    }
 
-     }
+    printf("From Arduino Serial Debug : %s\n", sensorData);
 
-     printf("From Arduino Serial Debug : %s\n", sensorData);
+    sleep(1);
 
-     sleep(1);
-
-     }
+    }
 
 
 
