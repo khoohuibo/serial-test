@@ -13,7 +13,7 @@
 
 char AzimuthData[100];
 char ElevationData[100];
-char sensorData;
+char sensorData[2000];
 
 
 void recieve_azi_el(PGconn *conn)
