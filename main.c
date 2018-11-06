@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <libpq-fe.h>
 
-#include "arduino-serial/arduino-serial-lib.c"
+#include "arduino-serial/arduino-serial-lib.h"
 
 char AzimuthData[] = "3685:\0";
 char ElevationData[] = "1834:\0" ;
