@@ -11,6 +11,6 @@ SRCS = main.c \
   $(SERIALPORTLIB_SRCS)
 
 all :
-      $(CC) $(CFLAGS) $(SRCS) -o $(BIN)
+	$(CC) $(CFLAGS) $(SRCS) -o $(BIN)
 clean:
 	$(RM) $(TARGET)
