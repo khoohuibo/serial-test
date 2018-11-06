@@ -13,7 +13,7 @@
 
 char AzimuthData[100];
 char ElevationData[100];
-char sensorData[20];
+char sensorData[200];
 
 
 void recieve_azi_el(PGconn *conn)
@@ -92,7 +92,7 @@ int main(int argc, char const *argv[]) {
       } else {
         printf("Azimuth : %s sent\n", AzimuthData);
       }
-      int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 20, 2000);
+      int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 200, 2000);
       if (bytesReceived_1 == -1){
         printf("Error: Serial Read function failed!\n");
 
