@@ -84,7 +84,7 @@ int main(int argc, char const *argv[]) {
 
   while(1) {
     recieve_azi_el(conn);
-    sleep(1);
+    sleep(10);
 
     int bytesSent_1 = serialport_write(fd, AzimuthData);
      if(bytesSent_1 == -1) {
@@ -99,7 +99,7 @@ int main(int argc, char const *argv[]) {
       }
 
     printf("From Arduino Serial Debug : %s\n", sensorData);
-    sleep(1);
+    sleep(20);
 
     int bytesSent_2 = serialport_write(fd, ElevationData);
     if(bytesSent_2 == -1) {
@@ -115,7 +115,7 @@ int main(int argc, char const *argv[]) {
 
     printf("From Arduino Serial Debug : %s\n", sensorData);
 
-    sleep(1);
+    sleep(20);
 
     }
 
