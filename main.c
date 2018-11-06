@@ -37,6 +37,8 @@ int main(int argc, char const *argv[]) {
 
      printf("From Arduino Serial Debug : %d, %d\n", sensorData[0], sensorData[1]);
 
+     sleep(1);
+
      }
 
 
