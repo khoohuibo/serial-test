@@ -92,6 +92,8 @@ int main(int argc, char const *argv[]) {
       } else {
         printf("Azimuth : %s sent\n", AzimuthData);
       }
+
+    sleep(5);
     int bytesReceived_1 = serialport_read_until(fd, sensorData, ':', 2000, 200);
     if (bytesReceived_1 == -1){
         printf("Error: Serial Read function failed!\n");
@@ -108,6 +110,8 @@ int main(int argc, char const *argv[]) {
     else {
       printf("Elevation : %s sent\n", ElevationData);
       }
+
+    sleep(5)
     int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 200);
     if (bytesReceived_2 == -1){
       printf("Error: Serial Read function failed!\n");
