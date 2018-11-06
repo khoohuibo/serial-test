@@ -108,7 +108,7 @@ int main(int argc, char const *argv[]) {
     else {
       printf("Elevation : %s sent\n", ElevationData);
       }
-    int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 20000);
+    int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 200);
     if (bytesReceived_2 == -1){
       printf("Error: Serial Read function failed!\n");
     }
