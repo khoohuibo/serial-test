@@ -4,3 +4,6 @@
 [submodule "arduino-serial"]
 	path = arduino-serial
 	url = https://github.com/khoohuibo/arduino-serial
+[submodule "k3ng_rotator_controller"]
+	path = k3ng_rotator_controller
+	url = https://github.com/khoohuibo/k3ng_rotator_controller

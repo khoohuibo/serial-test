@@ -20,10 +20,11 @@ Note: the client doesnt work if the serial monitor of the Arduino is listening t
 
 To-do list:
   1. consider making two seperate buffers for azimuth and elevation, although clearing both with memset after done should be much better as azimuth and elevation ranges from 1 digit to 3 digits.
-  2. add servo functions to interface with monitor
+  2. add servo functions to interface with motor
   3. Maybe add graphical interface(EXTRA)
   4. Test on a clean ubuntu
   5. fix config.ini issues
+  6.
 
 Compiling:
 
