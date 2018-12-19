@@ -80,7 +80,9 @@ void yaesustringformat(const char *str , const char *str2){
     }
 
   }
-  snprintf(YaesuBuffer, 100, "W%s %s", return_string_1, return_string_2);
+  printf("%s\n", return_string_1 );
+  printf("%s\n", return_string_1 );
+  snprintf(YaesuBuffer, 100, "W%s %s\r\n", return_string_1, return_string_2);
 }
 
 
