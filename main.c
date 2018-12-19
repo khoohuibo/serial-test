@@ -65,6 +65,7 @@ void yaesustringformat(const char *str , const char *str2){
       strcat(return_string_1, AzimuthData);
     }
   } else {
+      strcpy(return_string_1, AzimuthData);
       printf("AzimuthData has %d digits\n", len);
     }
   if (!(len2 == 3)){
@@ -76,12 +77,13 @@ void yaesustringformat(const char *str , const char *str2){
       strcpy(return_string_2, "00");
       strcat(return_string_2, ElevationData);
     }else {
+      strcpy(return_string_2, ElevationData);
       printf("ElevationData has %d digits\n", len2);
     }
 
   }
   printf("%s\n", return_string_1 );
-  printf("%s\n", return_string_1 );
+  printf("%s\n", return_string_2 );
   snprintf(YaesuBuffer, 100, "W%s %s\r\n", return_string_1, return_string_2);
 }
 
