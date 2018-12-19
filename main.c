@@ -117,7 +117,7 @@ int main(int argc, char const *argv[]) {
   );
 
 
-  int fd = serialport_init("/dev/ttyACM0", 9600);
+  int fd = serialport_init("/dev/ttyUSB0", 9600);
 
   while(1) {
     recieve_azi_el(conn);
