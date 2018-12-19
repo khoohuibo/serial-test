@@ -14,8 +14,8 @@
 char AzimuthData[3];
 char ElevationData[3];
 char sensorData[2000];
-char YaesuAZBuffer [100];
-char YaesuELBuffer [100];
+char YaesuBuffer [100];
+
 
 
 void recieve_azi_el(PGconn *conn)
