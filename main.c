@@ -48,7 +48,7 @@ void recieve_azi_el(PGconn *conn)
     strncpy(AzimuthData, PQgetvalue(res,0,2), 3);
     strncpy(ElevationData, PQgetvalue(res,0,3), 3);
     PQclear(res);
-    snprintf(YaesuBuffer, "W%s %s", AzimuthData, ElevationData);
+    snprintf(YaesuBuffer, 100, "W%s %s", AzimuthData, ElevationData);
 }
 
 int main(int argc, char const *argv[]) {
