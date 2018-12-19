@@ -64,7 +64,8 @@ void yaesustringformat(const char *str , const char *str2){
     } if (len == 1){
       strcpy(return_string_1, "00");
       strcat(return_string_1, AzimuthData);
-    } else {
+    }
+  } else {
       printf("AzimuthData has %d digits\n", len);
     }
   if (!(len2 == 3)){
