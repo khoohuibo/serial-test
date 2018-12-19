@@ -11,9 +11,11 @@
 #include "config.h"
 
 
-char AzimuthData[100];
-char ElevationData[100];
+char AzimuthData[3];
+char ElevationData[3];
 char sensorData[2000];
+char YaesuAZBuffer [100];
+char YaesuELBuffer [100];
 
 
 void recieve_azi_el(PGconn *conn)
@@ -43,9 +45,10 @@ void recieve_azi_el(PGconn *conn)
         , atof(PQgetvalue(res,0,4))
         , atof(PQgetvalue(res,0,5))
     );
-    strncpy(AzimuthData, PQgetvalue(res,0,2), 100);
-    strncpy(ElevationData, PQgetvalue(res,0,3), 100);
+    strncpy(AzimuthData, PQgetvalue(res,0,2), 3);
+    strncpy(ElevationData, PQgetvalue(res,0,3), 3);
     PQclear(res);
+    snprintf(YaesuBuffer, "W%s %s", AzimuthData, ElevationData);
 }
 
 int main(int argc, char const *argv[]) {
@@ -86,11 +89,11 @@ int main(int argc, char const *argv[]) {
     recieve_azi_el(conn);
     sleep(5);
 
-    int bytesSent_1 = serialport_write(fd, AzimuthData);
+    int bytesSent_1 = serialport_write(fd, YaesuBuffer);
      if(bytesSent_1 == -1) {
-        printf("Error: Azimuth Data failed to send!\n" );
+        printf("Error: YaesuBuffer failed to send!\n" );
       } else {
-        printf("Azimuth : %s sent\n", AzimuthData);
+        printf("YaesuBuffer : %s sent\n", YaesuBuffer);
       }
 
     sleep(5);
@@ -103,27 +106,6 @@ int main(int argc, char const *argv[]) {
     printf("From Arduino Serial Debug : %s\n", sensorData);
     sleep(3);
     memset(sensorData, 0, sizeof(sensorData));
-
-    int bytesSent_2 = serialport_write(fd, ElevationData);
-    if(bytesSent_2 == -1) {
-         printf("Error: Elevation Data failed to send!\n" );
-      }
-    else {
-      printf("Elevation : %s sent\n", ElevationData);
-      }
-
-    sleep(5);
-    int bytesReceived_2 = serialport_read_until(fd, sensorData, ':', 2000, 200);
-    if (bytesReceived_2 == -1){
-      printf("Error: Serial Read function failed!\n");
-    }
-
-    printf("From Arduino Serial Debug : %s\n", sensorData);
-
-    sleep(3);
-
-    memset(sensorData, 0, sizeof(sensorData));
-
     }
 
 
