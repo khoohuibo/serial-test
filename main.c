@@ -48,8 +48,42 @@ void recieve_azi_el(PGconn *conn)
     strncpy(AzimuthData, PQgetvalue(res,0,2), 3);
     strncpy(ElevationData, PQgetvalue(res,0,3), 3);
     PQclear(res);
-    snprintf(YaesuBuffer, 100, "W%s %s", AzimuthData, ElevationData);
+    yaesustringformat(AzimuthData, ElevationData);
 }
+
+
+void yaesustringformat(const char *str , const char *str2){
+  char return_string_1[3];
+  char return_string_2[3];
+  int len = strlen(str);
+  int len2 = strlen(str2);
+  if (!(len == 3)){
+    if (len == 2){
+      strcpy(return_string_1, "0");
+      strcat(return_string_1, AzimuthData);
+    } if (len == 1){
+      strcpy(return_string_1, "00");
+      strcat(return_string_1, AzimuthData);
+    } else {
+      printf("AzimuthData has %d digits\n", len);
+    }
+  if (!(len2 == 3)){
+    if (len2 == 2){
+      strcpy(return_string_2, "0");
+      strcat(return_string_2, ElevationData);
+    }
+    if (len2 == 1){
+      strcpy(return_string_2, "00");
+      strcat(return_string_2, ElevationData);
+    }else {
+      printf("ElevationData has %d digits\n", len2);
+    }
+
+  }
+  snprintf(YaesuBuffer, 100, "W%s %s", return_string_1, return_string_2);
+}
+
+
 
 int main(int argc, char const *argv[]) {
 
