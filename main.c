@@ -11,8 +11,8 @@
 #include "config.h"
 
 
-char AzimuthData[3];
-char ElevationData[3];
+char AzimuthData[30];
+char ElevationData[30];
 char sensorData[2000];
 char YaesuBuffer [100];
 
@@ -52,8 +52,8 @@ void recieve_azi_el(PGconn *conn)
 
 
 void yaesustringformat(const char *str , const char *str2){
-  char return_string_1[3];
-  char return_string_2[3];
+  char return_string_1[30];
+  char return_string_2[30];
   int len = strlen(str);
   int len2 = strlen(str2);
   if (!(len == 3)){
