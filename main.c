@@ -48,7 +48,6 @@ void recieve_azi_el(PGconn *conn)
     strncpy(AzimuthData, PQgetvalue(res,0,2), 3);
     strncpy(ElevationData, PQgetvalue(res,0,3), 3);
     PQclear(res);
-    yaesustringformat(AzimuthData, ElevationData);
 }
 
 
@@ -122,6 +121,7 @@ int main(int argc, char const *argv[]) {
 
   while(1) {
     recieve_azi_el(conn);
+    yaesustringformat(AzimuthData, ElevationData);
     sleep(5);
 
     int bytesSent_1 = serialport_write(fd, YaesuBuffer);
