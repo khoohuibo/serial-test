@@ -15,7 +15,7 @@ char AzimuthData[30];
 char ElevationData[30];
 char sensorData[2000];
 char YaesuBuffer [100];
-char CommandString [100];
+char CommandString [10000];
 char input_ID[20];
 
 void display_spacecraft(PGconn *conn)
