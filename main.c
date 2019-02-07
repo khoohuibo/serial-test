@@ -22,6 +22,8 @@ void recieve_azi_el(PGconn *conn)
 {
     PGresult *res = PQexec(conn
         , "SELECT schedule.time, spacecraft.name, round(degrees(observations.azimuth)), round(degrees(observations.elevation)), spacecraft.frequency_downlink-(spacecraft.frequency_downlink*(observations.relative_velocity/3e8)) AS downlink, spacecraft.frequency_uplink-(spacecraft.frequency_uplink*(observations.relative_velocity/3e8)) AS uplink FROM (SELECT * FROM schedule WHERE time > NOW() ORDER BY time LIMIT 1) AS schedule INNER JOIN observations ON schedule.spacecraft=observations.spacecraft AND schedule.time=observations.time INNER JOIN spacecraft ON schedule.spacecraft=spacecraft.id;");
+
+    PQprintOpt	options = {0};
     if(PQresultStatus(res) != PGRES_TUPLES_OK)
     {
         printf("Error: Next Point Select query failed!\n");
@@ -37,6 +39,10 @@ void recieve_azi_el(PGconn *conn)
         PQclear(res);
         return;
     }
+    options.header = 1;
+    options.align = 1;
+    options.fieldSep = "|";
+    
     printf("%s: %d, %d, [%s] Downlink: %.6f MHz, Uplink: %.6f MHz\n"
         , PQgetvalue(res,0,0)
         , atoi(PQgetvalue(res,0,2))
@@ -45,6 +51,7 @@ void recieve_azi_el(PGconn *conn)
         , atof(PQgetvalue(res,0,4))
         , atof(PQgetvalue(res,0,5))
     );
+    PQprint(stdout, res, &options);
     strncpy(AzimuthData, PQgetvalue(res,0,2), 3);
     strncpy(ElevationData, PQgetvalue(res,0,3), 3);
     PQclear(res);
