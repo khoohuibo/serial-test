@@ -48,7 +48,7 @@ void display_spacecraft(PGconn *conn)
 
 void recieve_azi_el(PGconn *conn, const char *input_ID)
 {
-    snprintf(CommandString, 10000, "SELECT schedule.time, spacecraft.name, round(degrees(observations.azimuth)), round(degrees(observations.elevation)), spacecraft.frequency_downlink-(spacecraft.frequency_downlink*(observations.relative_velocity/3e8)) AS downlink, spacecraft.frequency_uplink-(spacecraft.frequency_uplink*(observations.relative_velocity/3e8)) AS uplink FROM (SELECT * FROM schedule WHERE time > NOW() AND spacecraft = %s ORDER BY time LIMIT 1) AS schedule INNER JOIN observations ON schedule.spacecraft=observations.spacecraft AND schedule.time=observations.time INNER JOIN spacecraft ON schedule.spacecraft=spacecraft.id;", input_ID);
+    snprintf(CommandString, 10000, "SELECT schedule.time, spacecraft.name, round(degrees(observations.azimuth)) AS azimuth, round(degrees(observations.elevation)) AS elevation, spacecraft.frequency_downlink-(spacecraft.frequency_downlink*(observations.relative_velocity/3e8)) AS downlink, spacecraft.frequency_uplink-(spacecraft.frequency_uplink*(observations.relative_velocity/3e8)) AS uplink FROM (SELECT * FROM schedule WHERE time > NOW() AND spacecraft = %s ORDER BY time LIMIT 1) AS schedule INNER JOIN observations ON schedule.spacecraft=observations.spacecraft AND schedule.time=observations.time INNER JOIN spacecraft ON schedule.spacecraft=spacecraft.id;", input_ID);
     printf("%s\n", CommandString );
     PGresult *res = PQexec(conn, CommandString);
 
