@@ -1,6 +1,6 @@
 [submodule "groundstation-tracking-scheduler"]
 	path = groundstation-tracking-scheduler
-	url = https://github.com/philcrump/groundstation-tracking-scheduler
+	url = https://github.com/khoohuibo/groundstation-tracking-scheduler
 [submodule "arduino-serial"]
 	path = arduino-serial
 	url = https://github.com/khoohuibo/arduino-serial
