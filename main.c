@@ -18,7 +18,7 @@ char YaesuBuffer [100];
 
 void display_spacecraft(PGconn *conn)
 {
-  PGresult *res = PQexec(conn,"SELECT * FROM spacecraft");
+  PGresult *res = PQexec(conn,"SELECT id, name FROM spacecraft");
   if(PQresultStatus(res) != PGRES_TUPLES_OK)
   {
       printf("Error: Display Spacecraft query failed!\n");
