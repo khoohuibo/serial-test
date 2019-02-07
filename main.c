@@ -18,7 +18,7 @@ char YaesuBuffer [100];
 
 void display_spacecraft(PGconn *conn)
 {
-  PGresult *res = PQexec(conn,"SELECT * FROM spacecraft" )
+  PGresult *res = PQexec(conn,"SELECT * FROM spacecraft");
   if(PQresultStatus(res) != PGRES_TUPLES_OK)
   {
       printf("Error: Display Spacecraft query failed!\n");
@@ -153,6 +153,7 @@ int main(int argc, char const *argv[]) {
   printf("Connected to Server (server: %d, client: %d)\n"
       , PQserverVersion(conn), PQlibVersion()
   );
+  display_spacecraft(conn);
 
 
   int fd = serialport_init("/dev/ttyUSB0", 9600);
