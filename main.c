@@ -15,6 +15,8 @@ char AzimuthData[30];
 char ElevationData[30];
 char sensorData[2000];
 char YaesuBuffer [100];
+char CommandString [100];
+char input_ID[2];
 
 void display_spacecraft(PGconn *conn)
 {
@@ -41,12 +43,14 @@ void display_spacecraft(PGconn *conn)
 
   PQprint(stdout, res, &options);
   PQclear(res);
+
 }
 
-void recieve_azi_el(PGconn *conn)
+void recieve_azi_el(PGconn *conn, const char *input_ID)
 {
-    PGresult *res = PQexec(conn
-        , "SELECT schedule.time, spacecraft.name, round(degrees(observations.azimuth)), round(degrees(observations.elevation)), spacecraft.frequency_downlink-(spacecraft.frequency_downlink*(observations.relative_velocity/3e8)) AS downlink, spacecraft.frequency_uplink-(spacecraft.frequency_uplink*(observations.relative_velocity/3e8)) AS uplink FROM (SELECT * FROM schedule WHERE time > NOW() ORDER BY time LIMIT 1) AS schedule INNER JOIN observations ON schedule.spacecraft=observations.spacecraft AND schedule.time=observations.time INNER JOIN spacecraft ON schedule.spacecraft=spacecraft.id;");
+    snprintf(CommandString, 100, "SELECT schedule.time, spacecraft.name, round(degrees(observations.azimuth)), round(degrees(observations.elevation)), spacecraft.frequency_downlink-(spacecraft.frequency_downlink*(observations.relative_velocity/3e8)) AS downlink, spacecraft.frequency_uplink-(spacecraft.frequency_uplink*(observations.relative_velocity/3e8)) AS uplink FROM (SELECT * FROM schedule WHERE time > NOW() AND spacecraft = %s ORDER BY time LIMIT 1) AS schedule INNER JOIN observations ON schedule.spacecraft=observations.spacecraft AND schedule.time=observations.time INNER JOIN spacecraft ON schedule.spacecraft=spacecraft.id;", id);
+    printf(CommandString);
+    PGresult *res = PQexec(conn, CommandString);
 
     PQprintOpt	options = {0};
 
@@ -155,11 +159,15 @@ int main(int argc, char const *argv[]) {
   );
   display_spacecraft(conn);
 
+  printf("Enter ID to track: ");
+   scanf("%s", input_ID);
+
+
 
   int fd = serialport_init("/dev/ttyUSB0", 9600);
 
   while(1) {
-    recieve_azi_el(conn);
+    recieve_azi_el(conn, input_ID);
     yaesustringformat(AzimuthData, ElevationData);
     sleep(5);
 
