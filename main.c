@@ -16,7 +16,7 @@ char ElevationData[30];
 char sensorData[2000];
 char YaesuBuffer [100];
 char CommandString [100];
-char input_ID[2];
+char input_ID[20];
 
 void display_spacecraft(PGconn *conn)
 {
@@ -160,7 +160,7 @@ int main(int argc, char const *argv[]) {
   display_spacecraft(conn);
 
   printf("Enter ID to track: ");
-  scanf("%s", &input_ID);
+  scanf("%[^\n]", &input_ID);
 
 
 
