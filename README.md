@@ -54,3 +54,4 @@ Run SQL script in groundstation-tracking-scheduler
 Compile and run the gss in groundstation-tracking-scheduler
 
 Issues:
+1. THIS BUILD IS INCOMPLETED 07/02/2019 there is a LOT to clean up
